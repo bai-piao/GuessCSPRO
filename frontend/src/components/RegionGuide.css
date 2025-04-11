@@ -1,0 +1,55 @@
+.region-guide-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.region-guide-content {
+    background-color: var(--mocha-light);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.region-guide-content h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.region-guide-content h3 {
+    color: #ffffff;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.region-guide-content p {
+    color: #ffffff;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.close-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 8px 16px;
+    background-color: var(--sage-green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: var(--muted-green);
+}

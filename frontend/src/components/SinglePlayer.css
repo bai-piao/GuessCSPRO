@@ -1,0 +1,377 @@
+.single-player {
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 20px;
+    align-items: center; /* 居中内容 */
+}
+
+.game-area {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden; /* 禁止滚动条 */
+    align-items: center; /* 居中内容 */
+    width: 100%;
+    padding-bottom: 60px; /* 为进度条留出空间 */
+}
+
+/* 移除所有滚动条相关样式 */
+.game-area::-webkit-scrollbar,
+.single-player::-webkit-scrollbar,
+.history-container::-webkit-scrollbar,
+.messages-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* 修改输入区域样式 */
+.input-section {
+    position: relative;
+    background: var(--mocha-bg);
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.player-input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--mocha-light);
+    color: var(--text-light);
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.player-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--slate-blue);
+}
+
+/* 确保建议列表不会超出视口 */
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--mocha-light);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item.selected {
+    background: var(--slate-blue);
+    color: var(--text-light);
+}
+
+.suggestion-item:hover {
+    background: var(--slate-blue);
+    color: var(--text-light);
+}
+
+/* 修改按钮组样式 */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.button-group button {
+    flex: 1;
+    min-width: 120px;
+    white-space: nowrap;
+    padding: 8px 15px; /* 减小按钮高度 */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.button-group button:first-child {
+    background: var(--sage-green);
+    color: white;
+}
+
+.button-group button:last-child {
+    background: var(--slate-blue);
+    color: white;
+}
+
+.button-group button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.progress-container {
+    position: relative; /* 改为相对定位 */
+    width: 100%;
+    height: 30px;
+    background-color: var(--mocha-light);
+    border-radius: 8px;
+    margin-top: 10px; /* 添加上边距 */
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--sage-green);
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.history-container {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* 为进度条预留空间 */
+    overflow-x: hidden;
+}
+
+.guess-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.guess-table th,
+.guess-table td {
+    padding: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.game-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.game-area::-webkit-scrollbar-thumb {
+    background: var(--slate-blue);
+    border-radius: 3px;
+}
+
+.game-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 修复滚动条样式 */
+.single-player::-webkit-scrollbar {
+    width: 6px;
+}
+
+.single-player::-webkit-scrollbar-thumb {
+    background: var(--slate-blue);
+    border-radius: 3px;
+}
+
+.single-player::-webkit-scrollbar-track {
+    background: var(--mocha-light);
+}
+
+@media screen and (max-height: 700px) {
+    .single-player {
+        height: calc(100vh - 80px);
+    }
+
+    .input-section {
+        padding: 5px 0;
+    }
+
+    .progress-container {
+        padding: 5px 0;
+    }
+}
+
+/* 调整移动端样式 */
+@media screen and (max-width: 480px) {
+    .single-player {
+        padding: 10px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .single-player {
+        padding: 10px;
+    }
+
+    .game-area {
+        padding: 0 10px;
+    }
+
+    .button-group {
+        gap: 8px;
+    }
+
+    .button-group button {
+        min-width: 100px;
+    }
+
+    .progress-container {
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .single-player {
+        padding: 10px;
+        height: auto; /* 改为自适应高度 */
+        min-height: calc(100vh - 60px);
+        overflow: visible; /* 确保内容可见 */
+    }
+
+    .game-area {
+        padding: 0;
+        overflow: visible;
+    }
+
+    /* 移除所有滚动相关的样式 */
+    .game-area::-webkit-scrollbar,
+    .single-player::-webkit-scrollbar {
+        display: none;
+    }
+
+    .input-section {
+        padding: 10px;
+        margin: 0;
+        border-radius: 8px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .button-group {
+        padding: 0;
+        flex-direction: row; /* 确保在移动端也保持水平排列 */
+    }
+
+    .progress-container {
+        position: relative;
+        margin: 10px 0 20px 0;
+        width: 100%;
+    }
+    
+    .guess-table {
+        font-size: 14px;
+    }
+
+    /* 优化建议列表在移动端的显示 */
+    .suggestions-list {
+        max-height: 160px;
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        width: auto;
+    }
+
+    .player-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .suggestion-item {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* 更小屏幕的额外优化 */
+@media screen and (max-width: 480px) {
+    .player-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .suggestion-item {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* 修改游戏结果弹窗样式 */
+.game-result-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--mocha-light);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    z-index: 1000;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.game-result-title {
+    text-align: center;
+    font-size: 24px;
+    color: var(--sage-green);
+    margin-bottom: 20px;
+}
+
+.game-result-content {
+    display: grid;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.player-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.player-info-label {
+    color: var(--muted-yellow);
+}
+
+.player-info-value {
+    color: var(--text-light);
+}

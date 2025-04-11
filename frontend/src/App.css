@@ -1,0 +1,598 @@
+:root {
+    --mocha-bg: #1f1d1c;
+    --mocha-light: #2d2825;
+    --sage-green: #70a16f;    /* 更鲜艳的绿色 */
+    --dusty-rose: #d17c7c;    /* 更鲜艳的红色 */
+    --muted-yellow: #e6c75c;  /* 更鲜艳的黄色 */
+    --slate-blue: #7c90b3;    /* 更鲜艳的蓝色 */
+    --text-light: #ffffff;
+}
+
+html, body, #root {
+    overflow: hidden; /* 禁止全局滚动条 */
+}
+
+/* 修改游戏容器的样式 */
+.game-container {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--mocha-bg);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative; /* 添加这行 */
+    overflow: hidden; /* 禁止滚动条 */
+}
+
+.game-title {
+    color: #fff;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+}
+
+.subtitle {
+    font-size: 0.5em;
+    opacity: 0.8;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 100; /* 确保输入框和建议列表在最上层 */
+}
+
+.player-input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--mocha-light);
+    color: var(--text-light);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.player-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #4a4a4a;
+}
+
+/* 修复建议列表样式 */
+.suggestions-list {
+    position: absolute;
+    width: 100%;
+    background: var(--mocha-light);
+    border-radius: 8px;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: var(--slate-blue);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.game-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button {
+    background-color: var(--sage-green);
+    color: var(--text-light);
+}
+
+.reset-button {
+    background-color: var(--dusty-rose);
+    color: var(--text-light);
+}
+
+.game-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.result-text {
+    text-align: center;
+    font-size: 1.2em;
+    color: #4CAF50;
+    animation: pulse 0.5s ease-in-out;
+}
+
+.remaining-guesses {
+    text-align: center;
+    color: #fff;
+    font-size: 1.1em;
+}
+
+.answer-container {
+    background-color: var(--mocha-light);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 修改表格容器样式 */
+.history-container {
+    margin-bottom: 60px; /* 为进度条留出空间 */
+    width: 100%;
+    overflow-x: visible; /* 改为 visible */
+}
+
+.guess-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    animation: slideUp 0.5s ease-out;
+    display: table; /* 改为 table */
+    table-layout: fixed; /* 添加固定布局 */
+}
+
+.guess-table th,
+.guess-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #3a3a3a;
+    white-space: nowrap; /* 防止内容换行 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 超出显示省略号 */
+}
+
+/* 设置每列的宽度占比 */
+.guess-table th:nth-child(1),
+.guess-table td:nth-child(1) { width: 20%; } /* 名字列 */
+
+.guess-table th:nth-child(2),
+.guess-table td:nth-child(2) { width: 20%; } /* 队伍列 */
+
+.guess-table th:nth-child(3),
+.guess-table td:nth-child(3) { width: 20%; } /* 国家列 */
+
+.guess-table th:nth-child(4),
+.guess-table td:nth-child(4) { width: 10%; } /* 年龄列 */
+
+.guess-table th:nth-child(5),
+.guess-table td:nth-child(5) { width: 15%; } /* 角色列 */
+
+.guess-table th:nth-child(6),
+.guess-table td:nth-child(6) { width: 15%; } /* Major次数列 */
+
+/* 在小屏幕上调整表格显示 */
+@media screen and (max-width: 768px) {
+    .guess-table {
+        font-size: 14px;
+    }
+
+    .guess-table th,
+    .guess-table td {
+        padding: 4px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .guess-table {
+        font-size: 12px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.correct {
+    background-color: var(--sage-green) !important;
+    color: var(--text-light) !important;
+}
+
+.incorrect {
+    background-color: var(--dusty-rose) !important;
+    color: var(--text-light) !important;
+}
+
+.close {
+    background-color: var(--muted-yellow) !important;
+    color: var(--mocha-bg) !important;
+}
+
+td[style*="green"] {
+    background-color: var(--sage-green) !important;
+    color: var (--text-light) !important;
+}
+
+td[style*="red"] {
+    background-color: var(--dusty-rose) !important;
+    color: var(--text-light) !important;
+}
+
+td[style*="yellow"] {
+    background-color: var(--muted-yellow) !important;
+    color: var(--mocha-bg) !important;
+}
+
+/* 修改进度条位置和样式 */
+.progress-container {
+    position: relative; /* 改为相对定位 */
+    width: 100%;
+    height: 30px;
+    background-color: var(--mocha-light);
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 20px 0;
+    max-width: 100%; /* 使用百分比 */
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--sage-green);
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.menu-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.menu-buttons button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--slate-blue);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-buttons button.disabled {
+    background: var(--mocha-light);
+    opacity: 0.7;
+    position: relative;
+    cursor: not-allowed;
+}
+
+.dev-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--dusty-rose);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    transform: scale(0.8);
+}
+
+.multi-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+}
+
+.join-room {
+    display: flex;
+    gap: 10px;
+}
+
+.room-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.room-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--muted-yellow);
+    letter-spacing: 2px;
+}
+
+.room-info .room-code {
+    font-family: monospace;
+    background-color: var(--mocha-light);
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.timer {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--muted-yellow);
+    margin: 10px 0;
+    padding: 10px;
+    background-color: var(--mocha-light);
+    border-radius: 8px;
+}
+
+.game-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.game-footer {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--text-light);
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+.game-footer p {
+    margin: 5px 0;
+}
+
+/* 添加移动端响应式样式 */
+@media screen and (max-width: 768px) {
+    .game-container {
+        padding: 0;
+    }
+
+    .game-header {
+        margin-bottom: 15px;
+    }
+
+    .game-title {
+        font-size: 1.8em;
+    }
+
+    .guess-table th,
+    .guess-table td {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+
+    .button-group {
+        flex-direction: row; /* 在移动端保持横向排列 */
+        flex-wrap: wrap; /* 允许按钮换行 */
+    }
+
+    .button-group button {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .answer-container {
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    .progress-container {
+        height: 25px;
+        margin: 15px 0;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .game-container {
+        padding: 8px;
+    }
+
+    .game-title {
+        font-size: 1.5em;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+
+    .history-container {
+        margin-bottom: 40px;
+    }
+
+    .progress-container {
+        height: 20px;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--mocha-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--slate-blue);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sage-green);
+}
+
+
+.game-result-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--mocha-light);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    width: 400px;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.game-result-title {
+    font-size: 24px;
+    color: var(--sage-green);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.game-result-content {
+    margin: 20px 0;
+}
+
+.game-result-content p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.game-result-link {
+    color: var(--slate-blue);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    transition: color 0.2s;
+}
+
+.game-result-link:hover {
+    color: var(--muted-yellow);
+}
+
+.game-result-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.game-result-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.button-continue {
+    background-color: var(--sage-green);
+    color: white;
+}
+
+.button-stay {
+    background-color: var(--slate-blue);
+    color: white;
+}
+
+.game-result-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.guide-button {
+    padding: 8px 16px;
+    background-color: var(--sage-green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.guide-button:hover {
+    background-color: var(--muted-green);
+}

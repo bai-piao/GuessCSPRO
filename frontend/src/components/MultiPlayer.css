@@ -1,0 +1,15 @@
+.multiplayer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+    .multiplayer-container {
+        padding: 10px;
+    }
+}

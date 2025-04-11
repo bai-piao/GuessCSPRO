@@ -1,0 +1,86 @@
+.game-summary {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--mocha-light);
+    padding: 30px;
+    border-radius: 12px;
+    min-width: 400px;
+    max-width: 90%;
+    z-index: 1000;
+}
+
+.summary-title {
+    text-align: center;
+    color: var(--sage-green);
+    margin-bottom: 20px;
+}
+
+.winner-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.final-score {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.player-final-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.score {
+    font-size: 1.5em;
+    color: var(--muted-yellow);
+    font-weight: bold;
+}
+
+.match-stats {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.round-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.summary-actions button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.play-again {
+    background: var(--sage-green);
+    color: white;
+}
+
+.return-lobby {
+    background: var(--slate-blue);
+    color: white;
+}
+
+.summary-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,56 @@
+.spectator-view {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: var(--mocha-bg);
+}
+
+.spectator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--mocha-light);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.room-code {
+    font-family: monospace;
+    color: var(--muted-yellow);
+    font-size: 1.2em;
+}
+
+.spectator-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.players-history {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    background: var(--mocha-bg);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.player-history {
+    background: var(--mocha-light);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.player-history h3 {
+    color: var(--sage-green);
+    margin-bottom: 15px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

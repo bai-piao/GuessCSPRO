@@ -1,0 +1,290 @@
+.history-container {
+    width: 100%;
+    margin: 20px 0;
+    overflow: visible; 
+}
+
+.guess-table {
+    width: 100%;
+    border-collapse: collapse; 
+    background: var(--mocha-light);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    min-width: 700px; 
+    table-layout: fixed; 
+}
+
+.guess-table th,
+.guess-table td {
+    padding: 12px 8px;
+    text-align: left;
+    border: 1px solid var(--mocha-bg);
+    white-space: nowrap; 
+    overflow: visible; 
+    text-overflow: ellipsis; 
+}
+
+/* 固定各列宽度 */
+.guess-table th:nth-child(1),
+.guess-table td:nth-child(1) { width: 100px; } /* 名字列 */
+
+.guess-table th:nth-child(2),
+.guess-table td:nth-child(2) { width: 100px; } /* 队伍列 */
+
+.guess-table th:nth-child(3),
+.guess-table td:nth-child(3) { width: 100px; } /* 国家列 */
+
+.guess-table th:nth-child(4),
+.guess-table td:nth-child(4) { width: 80px; } /* 年龄列 */
+
+.guess-table th:nth-child(5),
+.guess-table td:nth-child(5) { width: 80px; } /* 角色列 */
+
+.guess-table th:nth-child(6),
+.guess-table td:nth-child(6) { width: 100px; } /* Major次数列 */
+
+.guess-table th,
+.guess-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--mocha-bg);
+    white-space: nowrap; /* 防止内容换行 */
+    overflow: hidden; 
+}
+
+.guess-table th {
+    background: var(--mocha-bg);
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    padding: 15px;
+}
+
+.guess-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    color: #ffffff !important;
+}
+
+.guess-table td.name-cell {
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.guess-table tr:hover td {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.guess-table tr:last-child td {
+    border-bottom: none;
+}
+
+.age-cell,
+.majapp-cell {
+    position: relative;
+    padding-right: 25px !important;
+}
+
+.age-cell.correct,
+.majapp-cell.correct {
+    background-color: var(--sage-green) !important;
+    color: var(--text-light) !important;
+}
+
+.age-cell.close,
+.majapp-cell.close {
+    background-color: var(--muted-yellow) !important;
+    color: var(--mocha-bg) !important;
+}
+
+.age-cell.higher,
+.age-cell.lower,
+.majapp-cell.higher,
+.majapp-cell.lower {
+    color: var(--text-light);
+}
+
+.age-indicator,
+.majapp-indicator {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: inherit;
+}
+
+.indicator {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.correct {
+    background-color: var(--sage-green) !important;
+    color: var(--text-light) !important;
+}
+
+.incorrect {
+    background-color: var(--dusty-rose) !important;
+    color: var(--text-light) !important;
+}
+
+.close {
+    background-color: var(--muted-yellow);;
+    color: var (--mocha-bg) !important;
+}
+
+/* 修改样式优先级和顺序 */
+td.correct {
+    background-color: var(--muted-green) !important;
+    color: #ffffff !important;
+}
+
+td.close {
+    background-color: var(--muted-yellow) !important;
+    color: #ffffff !important;
+}
+
+/* 将队伍和国家的样式放在最后 */
+td:nth-child(2).incorrect,  /* 队伍列 */
+td:nth-child(3).incorrect { /* 国家列 */
+    background-color: transparent;
+    color: #ffffff;
+}
+
+/* 移除可能冲突的样式 */
+td.incorrect {
+    background-color: var(--dusty-rose) !important;
+    color: #ffffff !important;
+}
+
+/* 重置队伍和国家的默认样式 */
+td.incorrect {
+    background-color: var(--dusty-rose) !important;
+    color: #ffffff !important;
+}
+
+/* 专门针对队伍和国家列的incorrect样式重置 */
+td:nth-child(2).incorrect,  /* 队伍列 */
+td:nth-child(3).incorrect { /* 国家列 */
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* 保持正确和接近的样式不变 */
+td.correct {
+    background-color: var(--muted-green) !important;
+    color: #ffffff !important;
+}
+
+td.close {
+    background-color: var(--muted-yellow) !important;
+    color: #ffffff !important;
+}
+
+/* 重要：清理所有重复的样式定义，只保留这些核心样式 */
+td.correct {
+    background-color: var(--sage-green) !important;
+    color: #ffffff !important;
+}
+
+td.close {
+    background-color: var(--muted-yellow) !important;
+    color: #ffffff !important;
+}
+
+td.incorrect {
+    background-color: var(--dusty-rose) !important;
+    color: #ffffff !important;
+}
+
+/* 放在最后，确保这些选择器有最高优先级 */
+td:nth-child(2).incorrect,  /* 队伍列 */
+td:nth-child(3).incorrect { /* 国家列 */
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* 添加动画效果 */
+.guess-table tr {
+    animation: slideIn 0.3s ease-out forwards;
+    opacity: 0;
+}
+
+.guess-table tr:nth-child(1) { animation-delay: 0.1s; }
+.guess-table tr:nth-child(2) { animation-delay: 0.2s; }
+.guess-table tr:nth-child(3) { animation-delay: 0.3s; }
+.guess-table tr:nth-child(4) { animation-delay: 0.4s; }
+.guess-table tr:nth-child(5) { animation-delay: 0.5s; }
+.guess-table tr:nth-child(6) { animation-delay: 0.6s; }
+.guess-table tr:nth-child(7) { animation-delay: 0.7s; }
+.guess-table tr:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 修改移动端样式 */
+@media screen and (max-width: 768px) {
+    .history-container {
+        margin: 10px 0;
+        overflow: visible; /* 移除滚动 */
+    }
+
+    .guess-table {
+        width: 100%; /* 确保宽度100% */
+        min-width: auto; /* 移除最小宽度限制 */
+        font-size: 14px;
+    }
+
+    .guess-table th,
+    .guess-table td {
+        padding: 8px;
+        font-size: 12px;
+        width: auto; /* 自动宽度 */
+    }
+
+    /* 设置每列的固定宽度占比 */
+    .guess-table th:nth-child(1), 
+    .guess-table td:nth-child(1) { width: 20%; }
+    
+    .guess-table th:nth-child(2),
+    .guess-table td:nth-child(2) { width: 18%; }
+    
+    .guess-table th:nth-child(3),
+    .guess-table td:nth-child(3) { width: 20%; }
+    
+    .guess-table th:nth-child(4),
+    .guess-table td:nth-child(4) { width: 12%; }
+    
+    .guess-table th:nth-child(5),
+    .guess-table td:nth-child(5) { width: 15%; }
+    
+    .guess-table th:nth-child(6),
+    .guess-table td:nth-child(6) { width: 15%; }
+    
+    .guess-table th:nth-child(4),
+    .guess-table td:nth-child(4),
+    .guess-table th:nth-child(6),
+    .guess-table td:nth-child(6) {
+        padding-right: 20px; /* 为箭头预留空间 */
+        position: relative;
+    }
+
+    .indicator {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
